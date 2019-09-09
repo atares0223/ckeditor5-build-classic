@@ -27,6 +27,7 @@ import Paragraph from '@ckeditor/ckeditor5-paragraph/src/paragraph';
 import PasteFromOffice from '@ckeditor/ckeditor5-paste-from-office/src/pastefromoffice';
 import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -52,7 +53,8 @@ ClassicEditor.builtinPlugins = [
 	Paragraph,
 	PasteFromOffice,
 	Table,
-	TableToolbar
+	TableToolbar,
+	Alignment
 ];
 
 // Editor configuration.
@@ -63,6 +65,7 @@ ClassicEditor.defaultConfig = {
 			'|',
 			'bold',
 			'italic',
+			'alignment',
 			'link',
 			'bulletedList',
 			'numberedList',
@@ -75,11 +78,18 @@ ClassicEditor.defaultConfig = {
 		]
 	},
 	image: {
-		toolbar: [
-			'imageStyle:full',
-			'imageStyle:side',
-			'|',
-			'imageTextAlternative'
+		// You need to configure the image toolbar, too, so it uses the new style buttons.
+		toolbar: [ 'imageTextAlternative', '|', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight' ],
+
+		styles: [
+			// This option is equal to a situation where no style is applied.
+			'full',
+
+			// This represents an image aligned to the left.
+			'alignLeft',
+
+			// This represents an image aligned to the right.
+			'alignRight'
 		]
 	},
 	table: {
@@ -89,6 +99,7 @@ ClassicEditor.defaultConfig = {
 			'mergeTableCells'
 		]
 	},
+
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: 'en'
 };
